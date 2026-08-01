@@ -1,0 +1,48 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    uses: ./.github/workflows/ci.yml
+
+  build-and-release:
+    name: Build & publish release zip
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify tag matches plugin version header
+        run: |
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          PLUGIN_VERSION=$(grep -m1 '^ \* Version:' ws-wp-profile-display-block.php | sed -E 's/^ \* Version:[[:space:]]*//')
+          if [ "$TAG_VERSION" != "$PLUGIN_VERSION" ]; then
+            echo "::error::Tag version ($TAG_VERSION) does not match Version header in ws-wp-profile-display-block.php ($PLUGIN_VERSION)"
+            exit 1
+          fi
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+      - run: npx wp-scripts plugin-zip
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" ws-wp-profile-display-block.zip \
+            --title "${GITHUB_REF_NAME}" \
+            --generate-notes
