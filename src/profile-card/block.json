@@ -1,0 +1,82 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ws-profile/wporg-card",
+	"title": "WordPress.org プロフィールカード",
+	"category": "widgets",
+	"icon": "id-alt",
+	"description": "WordPress.org のプロフィール（アバター・表示名・登録日・バッジ）をカード形式で表示します。",
+	"keywords": [ "wordpress.org", "profile", "プロフィール" ],
+	"version": "0.1.0",
+	"textdomain": "ws-wp-profile-display-block",
+	"attributes": {
+		"username": {
+			"type": "string",
+			"default": ""
+		},
+		"showAvatar": {
+			"type": "boolean",
+			"default": true
+		},
+		"showHeader": {
+			"type": "boolean",
+			"default": true
+		},
+		"showMemberSince": {
+			"type": "boolean",
+			"default": true
+		},
+		"showBadges": {
+			"type": "boolean",
+			"default": true
+		},
+		"badgeDisplay": {
+			"type": "string",
+			"default": "label"
+		},
+		"linkToProfile": {
+			"type": "boolean",
+			"default": true
+		},
+		"openInNewTab": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"color": {
+			"background": true,
+			"text": true,
+			"gradients": true
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true,
+			"__experimentalFontFamily": true,
+			"__experimentalFontWeight": true
+		},
+		"spacing": {
+			"padding": true,
+			"margin": true,
+			"blockGap": true
+		},
+		"__experimentalBorder": {
+			"color": true,
+			"radius": true,
+			"style": true,
+			"width": true
+		},
+		"shadow": true
+	},
+	"styles": [
+		{ "name": "default", "label": "標準", "isDefault": true },
+		{ "name": "stacked", "label": "積み上げ" },
+		{ "name": "minimal", "label": "ミニマル" }
+	],
+	"editorScript": "file:./index.js",
+	"editorStyle": [ "file:./index.css", "dashicons" ],
+	"style": [ "file:./style-index.css", "dashicons" ],
+	"render": "file:./render.php"
+}

@@ -1,0 +1,10 @@
+/* ==========================================================================
+   WS WP Profile Display Block — エディタ専用スタイル
+   ========================================================================== */
+
+.wp-block-ws-profile-wporg-card .components-placeholder__fieldset {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	align-items: center;
+}

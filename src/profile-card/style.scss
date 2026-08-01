@@ -1,0 +1,159 @@
+/* ==========================================================================
+   WS WP Profile Display Block — カード本体（フロント・エディタ共通）
+   ========================================================================== */
+
+/*
+ * border-radius・box-shadow はここに固定値を書かず、block.json の
+ * attributes.style.default（border.radius / shadow）で持たせる。こうすることで
+ * 標準の「枠線と影」パネルに初期値が反映され、そのままパネルから編集できる
+ * （固定 CSS のままだと、パネルは空欄なのに見た目には角丸・影が付くという
+ * 不整合が起きるため）。
+ */
+.ws-wporg-card {
+	--ws-wporg-card-gap: 1.5rem;
+	--ws-wporg-card-bg: #fff;
+
+	display: flex;
+	flex-direction: column;
+	gap: var( --ws-wporg-card-gap );
+	padding: 2rem;
+	background-color: var( --ws-wporg-card-bg );
+}
+
+/* リンクラッパー（linkToProfile 有効時のみ出力）
+   ========================================================================== */
+
+.ws-wporg-card__link {
+	display: block;
+	color: inherit;
+	text-decoration: none;
+}
+
+/* ヘッダー（アバター・名前・登録日） — アバターを左、情報を右に配置
+   ========================================================================== */
+
+.ws-wporg-card__header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 1.25rem;
+	text-align: left;
+}
+
+.ws-wporg-card__avatar {
+	flex-shrink: 0;
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.ws-wporg-card__identity {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	min-width: 0;
+}
+
+.ws-wporg-card__name {
+	margin: 0;
+	font-size: 1.375em;
+	font-weight: 800;
+	line-height: 1.25;
+}
+
+.ws-wporg-card__username,
+.ws-wporg-card__member-since {
+	margin: 0;
+	color: #6b7280;
+	font-size: 0.9375em;
+}
+
+/* バッジ一覧 — 円形アイコン + ラベルの 2 カラムグリッド
+   ========================================================================== */
+
+.ws-wporg-card__badges {
+	display: grid;
+	grid-template-columns: repeat( 2, 1fr );
+	gap: 1rem 1.5rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+
+	@media ( max-width: 480px ) {
+		grid-template-columns: 1fr;
+	}
+}
+
+.ws-wporg-card__badge {
+	--ws-badge-color: #c7c7c7;
+	--ws-badge-bg: #fff;
+	--ws-badge-icon-color: #c7c7c7;
+
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	min-width: 0;
+}
+
+.ws-wporg-card__badge-circle {
+	display: flex;
+	flex-shrink: 0;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	border: 2px solid var( --ws-badge-color );
+	border-radius: 50%;
+	background-color: var( --ws-badge-bg );
+	color: var( --ws-badge-icon-color );
+}
+
+.ws-wporg-card__badge-icon {
+	display: inline-flex;
+	width: 18px;
+	height: 18px;
+
+	&.dashicons {
+		width: auto;
+		height: auto;
+		font-size: 18px;
+		line-height: 1;
+	}
+
+	svg {
+		width: 100%;
+		height: 100%;
+	}
+
+	svg path {
+		fill: currentColor;
+	}
+}
+
+.ws-wporg-card__badge-name {
+	color: #1f2937;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 1.3;
+}
+
+/* ==========================================================================
+   スタイルバリエーション
+   ========================================================================== */
+
+/* 積み上げ（is-style-stacked） — アバターを上、情報を下に中央揃えで配置
+   ========================================================================== */
+
+.is-style-stacked .ws-wporg-card__header {
+	flex-direction: column;
+	text-align: center;
+}
+
+/* ミニマル（is-style-minimal） — カードの背景・パディングを持たない表示
+   ========================================================================== */
+
+.is-style-minimal.ws-wporg-card {
+	padding: 0;
+	background-color: transparent;
+}

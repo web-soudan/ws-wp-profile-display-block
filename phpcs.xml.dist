@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<ruleset name="WS WP Profile Display Block">
+	<description>Custom ruleset for WS WP Profile Display Block</description>
+
+	<!-- 対象ファイル -->
+	<file>./ws-wp-profile-display-block.php</file>
+	<file>./uninstall.php</file>
+	<file>./includes/</file>
+	<file>./src/</file>
+
+	<!-- 除外 -->
+	<exclude-pattern>./vendor/*</exclude-pattern>
+	<exclude-pattern>./node_modules/*</exclude-pattern>
+	<exclude-pattern>./build/*</exclude-pattern>
+	<exclude-pattern>./tests/*</exclude-pattern>
+
+	<arg value="sp"/>
+	<arg name="colors"/>
+	<arg name="extensions" value="php"/>
+
+	<!-- WordPress Coding Standards -->
+	<rule ref="WordPress">
+		<!-- コメントは日本語（句点「。」で終わる）で記載する運用のため、
+		     ASCII の . ! ? での終端を要求するこのチェックは対象外にする. -->
+		<exclude name="Squiz.Commenting.InlineComment.InvalidEndChar"/>
+		<exclude name="Generic.Commenting.DocComment.LongNotCapital"/>
+		<exclude name="Squiz.Commenting.FunctionComment.ParamCommentFullStop"/>
+		<exclude name="Squiz.Commenting.FunctionComment.ThrowsNoFullStop"/>
+	</rule>
+
+	<!-- render.php はブロックのレンダリングコールバックからインクルードされ、
+	     トップレベル変数はグローバルスコープに漏れないため対象外にする. -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound">
+		<exclude-pattern>*/render\.php</exclude-pattern>
+	</rule>
+
+	<!-- PHP互換性チェック -->
+	<rule ref="PHPCompatibilityWP"/>
+
+	<!-- PHP バージョン -->
+	<config name="testVersion" value="7.4-"/>
+
+	<!-- テキストドメイン -->
+	<config name="text_domain" value="ws-wp-profile-display-block"/>
+
+	<!-- プレフィックス -->
+	<config name="prefixes" value="ws_wp_profile_display_block,WS_WP_Profile_Display_Block"/>
+	<config name="minimum_wp_version" value="6.5"/>
+</ruleset>
