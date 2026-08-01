@@ -54,6 +54,7 @@ npx wp-env start    # local WordPress at http://localhost:8888 (admin / password
 - `composer run phpcs` / `composer run phpcbf` — WordPress Coding Standards
 - `vendor/bin/phpunit --testsuite unit` — unit tests (no WordPress required)
 - `npx wp-env run tests-cli --env-cwd=wp-content/plugins/ws-wp-profile-display-block vendor/bin/phpunit --testsuite integration --bootstrap=tests/phpunit/bootstrap.php` — integration tests
+- `npm run test:e2e` — Playwright e2e tests against the wp-env "tests" site (`:8889`). This first runs `pretest:e2e`, which activates a theme and this plugin on that site — wp-env's tests environment has no active theme by default, and without one WordPress mis-resolves plugin block script URLs (they get pointed at `wp-content/themes/default/...` instead of the plugin directory)
 
 See [`docs/spec.md`](docs/spec.md) (Japanese) for the full specification, including the scraping selectors, caching strategy, and the full badge color table.
 

@@ -4,13 +4,24 @@
 	"description": "WordPress.org のプロフィールをカードとして表示するブロック",
 	"private": true,
 	"license": "GPL-2.0-or-later",
+	"files": [
+		"assets",
+		"build",
+		"includes",
+		"README.md",
+		"README.ja.md",
+		"uninstall.php",
+		"ws-wp-profile-display-block.php"
+	],
 	"scripts": {
 		"build": "wp-scripts build",
 		"start": "wp-scripts start",
 		"lint:js": "wp-scripts lint-js src",
 		"lint:css": "wp-scripts lint-style src/**/*.scss",
 		"wp-env": "wp-env",
+		"pretest:e2e": "wp-env run tests-cli wp theme activate twentytwentyfive && wp-env run tests-cli wp plugin activate ws-wp-profile-display-block",
 		"test:e2e": "playwright test",
+		"pretest:e2e:ui": "npm run pretest:e2e",
 		"test:e2e:ui": "playwright test --ui",
 		"prepare": "husky"
 	},

@@ -54,6 +54,7 @@ npx wp-env start    # ローカル WordPress を起動 http://localhost:8888 （
 - `composer run phpcs` / `composer run phpcbf` — WordPress Coding Standards
 - `vendor/bin/phpunit --testsuite unit` — Unit テスト（WordPress 不要）
 - `npx wp-env run tests-cli --env-cwd=wp-content/plugins/ws-wp-profile-display-block vendor/bin/phpunit --testsuite integration --bootstrap=tests/phpunit/bootstrap.php` — Integration テスト
+- `npm run test:e2e` — wp-env の「tests」サイト（`:8889`）に対する Playwright e2e テスト。実行前に `pretest:e2e` が自動でこのサイトのテーマとプラグインを有効化します。wp-env の tests 環境は既定でテーマが無効のままで、その状態だと WordPress がプラグインのブロックスクリプト URL を誤って解決してしまう（プラグインディレクトリではなく `wp-content/themes/default/...` を指してしまう）ため
 
 スクレイピングのセレクタ・キャッシュ戦略・バッジ配色の全一覧を含む詳細仕様は [`docs/spec.md`](docs/spec.md) を参照してください。
 
