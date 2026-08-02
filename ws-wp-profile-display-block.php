@@ -3,7 +3,7 @@
  * Plugin Name:       WS WP Profile Display Block
  * Plugin URI:        https://github.com/web-soudan/ws-wp-profile-display-block
  * Description:       WordPress.org のプロフィール（アバター・表示名・登録日・バッジ）をブロックとして表示します。
- * Version:           0.1.0
+ * Version:           0.1.1
  * Requires at least: 6.5
  * Requires PHP:      7.4
  * Author:            株式会社Webの相談所
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WS_WP_PROFILE_DISPLAY_BLOCK_VERSION', '0.1.0' );
+define( 'WS_WP_PROFILE_DISPLAY_BLOCK_VERSION', '0.1.1' );
 define( 'WS_WP_PROFILE_DISPLAY_BLOCK_FILE', __FILE__ );
 define( 'WS_WP_PROFILE_DISPLAY_BLOCK_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WS_WP_PROFILE_DISPLAY_BLOCK_URL', plugin_dir_url( __FILE__ ) );

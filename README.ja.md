@@ -58,6 +58,13 @@ npx wp-env start    # ローカル WordPress を起動 http://localhost:8888 （
 
 スクレイピングのセレクタ・キャッシュ戦略・バッジ配色の全一覧を含む詳細仕様は [`docs/spec.md`](docs/spec.md) を参照してください。
 
+## Changelog
+
+### 0.1.1
+
+- [ デザイン不具合修正 ] バッジ表示を「アイコンのみ」にした際、WordPress コアの共通スタイルを読み込まないサイトでバッジ名が非表示にならず表示されてしまう不具合を修正
+- [ セキュリティ修正 ] バッジ slug に含まれる不正な文字を出力前に除外するよう検証を追加
+
 ## クレジット
 
 - バッジの配色および独自アイコン 10 種は [wp-profiles-card](https://github.com/web-soudan/wp-profiles-card) / [donini/wp-profiles-card](https://github.com/donini/wp-profiles-card) から移植しています。
