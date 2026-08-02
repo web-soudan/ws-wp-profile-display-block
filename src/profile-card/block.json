@@ -7,7 +7,7 @@
 	"icon": "id-alt",
 	"description": "WordPress.org のプロフィール（アバター・表示名・登録日・バッジ）をカード形式で表示します。",
 	"keywords": [ "wordpress.org", "profile", "プロフィール" ],
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"textdomain": "ws-wp-profile-display-block",
 	"attributes": {
 		"username": {

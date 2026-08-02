@@ -1,6 +1,6 @@
 {
 	"name": "ws-wp-profile-display-block",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "WordPress.org のプロフィールをカードとして表示するブロック",
 	"private": true,
 	"license": "GPL-2.0-or-later",

@@ -89,6 +89,34 @@ class ProfileParserTest extends TestCase {
 	}
 
 	/**
+	 * バッジ slug に不正な文字（`[a-z0-9-]` 以外）を含むクラスが混在していても、
+	 * それらは除外されて正規の slug のみが残ることを確認する
+	 * （slug は CSS クラス名・style 属性のキーとして出力されるため）。
+	 */
+	public function test_parse_badge_slug_sanitization() {
+		$html = <<<'HTML'
+			<html>
+			<body>
+				<header class="site-header">
+					<h2 class="wp-p2-hero-name">Test User</h2>
+				</header>
+				<div class="wp-p2-badges-block">
+					<span class="medal badge-code ../../etc BadgeCode">
+						<span class="mi dashicons dashicons-editor-code"></span>
+						<span class="mn">Core Contributor</span>
+						<span class="myear">'15</span>
+					</span>
+				</div>
+			</body>
+			</html>
+			HTML;
+
+		$actual = Profile_Parser::parse( 'someone', $html );
+
+		$this->assertSame( 'badge-code', $actual['badges'][0]['slug'], '不正な文字を含むクラスは除外され、正規の slug のみが残る' );
+	}
+
+	/**
 	 * 存在しないユーザーの 404 ページでは null が返ることを確認する
 	 * （site-header 配下の h2「User not found」を表示名として誤検出しないこと）。
 	 */

@@ -347,21 +347,28 @@ CardPress の `src/lib/draw-card.js` 内の CSS に **63 種のバッジ配色**
 
 配色は以下の 2 値で表現できる（元 CSS を分析した結果、この規則で全 63 種を再現できる）。
 
-- **基準色** — 枠線の色、およびアイコンの色
-- **塗り** — `outline`（背景は白）／ `filled`（背景は基準色の 25% 透過）
+- **基準色** — 枠線の色。`outline` ではアイコン色にもなる
+- **塗り** — `outline`（背景は白・アイコンは基準色）／ `filled`（背景は基準色そのもの・アイコンは白）
 
-CSS カスタムプロパティで実装する。
+基準色・塗りの解決は `Badge_Icons::get_color()` / `is_filled()`（付録 A のデータを保持する純粋メソッド）が担い、`render.php` がバッジ 1 件ごとに以下の CSS カスタムプロパティを `style` 属性へ直接出力する。
 
 ```css
-.ws-wporg-card__badge { --ws-badge-color: #C7C7C7; --ws-badge-bg: #fff; }
-.ws-wporg-card__badge.badge-code { --ws-badge-color: #CD0000; }
-.ws-wporg-card__badge.badge-code-committer {
-	--ws-badge-color: #CD0000;
-	--ws-badge-bg: color-mix( in srgb, var( --ws-badge-color ) 25%, transparent );
+.ws-wporg-card__badge {
+	--ws-badge-color: #c7c7c7;
+	--ws-badge-bg: #fff;
+	--ws-badge-icon-color: #c7c7c7;
 }
 ```
 
-**全 63 種の一覧は付録 A を参照。** バッジが追加された際は付録 A と `style.scss` の両方を更新する。
+```php
+// render.php 内（1 バッジぶんの算出）
+$badge_bg         = $badge_filled ? $badge_color : '#ffffff';
+$badge_icon_color = $badge_filled ? '#ffffff' : $badge_color;
+```
+
+> **初期案からの変更点（2026-08-02）**: 当初案では `filled` の背景を `color-mix( in srgb, var( --ws-badge-color ) 25%, transparent )` による基準色の 25% 透過としていたが、実装時に「不透明な基準色背景＋白アイコン」へ変更した。透過よりも視認性・コントラストに優れ、profiles.wordpress.org の実際の見た目に近いため。付録 A の基準色・塗り（`outline`/`filled`）の対応表そのものに変更はない。
+
+**全 63 種の一覧は付録 A を参照。** バッジが追加された際は付録 A と `style.scss` / `render.php` の両方を更新する。
 
 ---
 
@@ -514,8 +521,8 @@ transient（既定 6 時間）でリクエスト頻度を抑制する。WordPres
 
 移植元: `wp-profiles-card/src/lib/draw-card.js`
 
-- **基準色** = 枠線色 / アイコン色
-- **塗り** = `outline`（背景 白）／ `filled`（背景 = 基準色の 25% 透過）
+- **基準色** = 枠線色（`outline` ではアイコン色も兼ねる）
+- **塗り** = `outline`（背景 白・アイコン基準色）／ `filled`（背景 基準色・アイコン白）
 
 | slug | 基準色 | 塗り |
 |---|---|---|

@@ -58,6 +58,13 @@ npx wp-env start    # local WordPress at http://localhost:8888 (admin / password
 
 See [`docs/spec.md`](docs/spec.md) (Japanese) for the full specification, including the scraping selectors, caching strategy, and the full badge color table.
 
+## Changelog
+
+### 0.1.1
+
+- [ Design Bug Fix ] Fixed badge names staying visible instead of being hidden from sighted users when Badge display is set to "Icon only", on sites that don't load WordPress core's default block styles
+- [ Security Fix ] Added validation to discard invalid characters from badge slugs before use
+
 ## Credits
 
 - Badge colors and the 10 custom badge icons are ported from [wp-profiles-card](https://github.com/web-soudan/wp-profiles-card) / [donini/wp-profiles-card](https://github.com/donini/wp-profiles-card).
