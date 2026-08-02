@@ -251,6 +251,9 @@ class Profile_Parser {
 	/**
 	 * バッジ要素の class から "medal" を除いた slug を取り出す。
 	 *
+	 * slug は CSS クラス名・style 属性のキーとして出力に使われるため、
+	 * `[a-z0-9-]` 以外を含むトークンは破棄する（docs/spec.md 8 参照）。
+	 *
 	 * @param \DOMElement $badge_node バッジ要素（.medal）。
 	 * @return string バッジ slug（例 "badge-code"）。
 	 */
@@ -259,7 +262,7 @@ class Profile_Parser {
 		$classes = array_filter(
 			$classes,
 			static function ( $class_name ) {
-				return '' !== $class_name && 'medal' !== $class_name;
+				return 'medal' !== $class_name && 1 === preg_match( '/^[a-z0-9-]+$/', $class_name );
 			}
 		);
 
